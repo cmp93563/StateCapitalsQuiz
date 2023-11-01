@@ -215,6 +215,13 @@ public class QuizData {
         values.put(QuizDBHelper.QUESTIONS_COLUMN_CAPITAL, quizQuestion.getCapital());
         values.put(QuizDBHelper.QUESTIONS_COLUMN_CITY_2, quizQuestion.getCity2());
         values.put(QuizDBHelper.QUESTIONS_COLUMN_CITY_3, quizQuestion.getCity3());
+        /*
+        Log.d(DEBUG_TAG, "State Val= " + quizQuestion.getState());
+        Log.d(DEBUG_TAG, "Capital Val= " + quizQuestion.getCapital());
+        Log.d(DEBUG_TAG, "City2 Val= " + quizQuestion.getCity2());
+        Log.d(DEBUG_TAG, "City3 Val= " + quizQuestion.getCity3());
+        */
+        Log.d(DEBUG_TAG, "after put values, before insert");
 
         long id = db.insert(QuizDBHelper.TABLE_QUESTIONS, null, values);
         quizQuestion.setId(id);

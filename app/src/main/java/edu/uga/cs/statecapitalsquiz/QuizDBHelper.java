@@ -81,9 +81,15 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     // It is synchronized, so that only one thread can executes this method at a time.
     public static synchronized QuizDBHelper getInstance( Context context ) {
         // check if the instance already exists and if not, create the instance
+        boolean isNull = false; // debug
+
         if( helperInstance == null ) {
             helperInstance = new QuizDBHelper( context.getApplicationContext() );
+            isNull = true; // debug
         }
+
+        Log.d(DEBUG_TAG, "DBHelper Instance is null: " + isNull);
+
         return helperInstance;
     }
 
