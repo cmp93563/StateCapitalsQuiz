@@ -13,6 +13,15 @@
         android:theme="@style/Theme.StateCapitalsQuiz"
         tools:targetApi="31">
         <activity
+            android:name=".QuizResults"
+            android:exported="false" />
+        <activity
+            android:name=".QuizQuestionPagerAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".QuizActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
