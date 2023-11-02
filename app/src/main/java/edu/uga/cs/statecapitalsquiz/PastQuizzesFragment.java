@@ -125,7 +125,7 @@ public class PastQuizzesFragment extends Fragment {
             quizzesList.addAll( jobsList );
 
             // create the RecyclerAdapter and set it for the RecyclerView
-            recyclerAdapter = new QuizRecyclerAdapter( getActivity(), quizList );
+            recyclerAdapter = new QuizRecyclerAdapter( getActivity(), quizzesList );
             recyclerView.setAdapter( recyclerAdapter );
         }
     }
@@ -167,8 +167,8 @@ public class PastQuizzesFragment extends Fragment {
     // This is an implementation of a callback for the AddJobLeadDialogFragment, which saves
     // a new job lead.
     // This method is called from the AddJobLeadDialogFragment in a listener to the "OK" button.
-    @Override
-    public void saveNewJobLead( Quiz jobLead ) {
+//    @Override
+    public void saveNewQuiz( Quiz jobLead ) {
 
         // add the new job lead
         new QuizDBWriter().execute( jobLead );

@@ -3,9 +3,11 @@ package edu.uga.cs.statecapitalsquiz;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class QuizDBHelper extends SQLiteOpenHelper {
 
+    private static final String DEBUG_TAG = "QuizDBHelper";
     private static final String DB_NAME = "capitalsquiz.db";
     private static final int DB_VERSION = 1;
 
@@ -22,6 +24,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     public static final String QUIZZES_COLUMN_ID = "_id";
     public static final String QUIZZES_COLUMN_DATE = "date";
     public static final String QUIZZES_COLUMN_RESULT = "result";
+    public static final String QUIZZES_COLUMN_ANSWERED = "answered";
     public static final String QUIZZES_COLUMN_Q1 = "q_1";
     public static final String QUIZZES_COLUMN_Q2 = "q_2";
     public static final String QUIZZES_COLUMN_Q3 = "q_3";
@@ -49,6 +52,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
                     + QUIZZES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + QUIZZES_COLUMN_DATE + " TEXT, "
                     + QUIZZES_COLUMN_RESULT + " INTEGER, "
+                    + QUIZZES_COLUMN_ANSWERED + "INTEGER, "
                     + QUIZZES_COLUMN_Q1 + " INTEGER, "
                     + QUIZZES_COLUMN_Q2 + " INTEGER, "
                     + QUIZZES_COLUMN_Q3 + " INTEGER, "
@@ -74,12 +78,18 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     }
 
     // Access method to the single instance of the class.
-    // It is synchronized, so that only one thread can executes this method, at a time.
+    // It is synchronized, so that only one thread can executes this method at a time.
     public static synchronized QuizDBHelper getInstance( Context context ) {
         // check if the instance already exists and if not, create the instance
+        boolean isNull = false; // debug
+
         if( helperInstance == null ) {
             helperInstance = new QuizDBHelper( context.getApplicationContext() );
+            isNull = true; // debug
         }
+
+        Log.d(DEBUG_TAG, "DBHelper Instance is null: " + isNull);
+
         return helperInstance;
     }
 
@@ -87,7 +97,9 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate( SQLiteDatabase db ) {
         db.execSQL( CREATE_QUESTIONS );
+        Log.d(DEBUG_TAG, "Table " + TABLE_QUESTIONS + "created");
         db.execSQL( CREATE_QUIZZES );
+        Log.d(DEBUG_TAG, "Table " + TABLE_QUIZZES + "created");
     }
 
 
@@ -96,6 +108,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
         db.execSQL( "drop table if exists " + TABLE_QUESTIONS );
         db.execSQL( "drop table if exists " + TABLE_QUIZZES );
         onCreate( db );
+        Log.d(DEBUG_TAG, "Tables upgraded");
     }
 
 
