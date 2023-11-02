@@ -7,6 +7,15 @@
     android:orientation="vertical"
     tools:context=".QuizResults">
 
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nvView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/jobleads_menu" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
