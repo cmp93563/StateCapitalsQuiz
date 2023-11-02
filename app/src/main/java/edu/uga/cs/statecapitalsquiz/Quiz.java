@@ -9,6 +9,8 @@ public class Quiz {
 
     private String date;
 
+    private long time;
+
     private int result;
 
     private int q_1;
@@ -24,8 +26,7 @@ public class Quiz {
     private int q_6;
 
 
-    public Quiz()
-    {
+    public Quiz() {
         this.id = -1;
         this.date = null;
         this.result = -1;
@@ -63,6 +64,14 @@ public class Quiz {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public int getResult() {

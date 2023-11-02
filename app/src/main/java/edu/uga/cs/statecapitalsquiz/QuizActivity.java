@@ -3,7 +3,11 @@ package edu.uga.cs.statecapitalsquiz;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -19,5 +23,7 @@ public class QuizActivity extends AppCompatActivity {
         pager.setOrientation(
                 ViewPager2.ORIENTATION_HORIZONTAL );
         pager.setAdapter( avpAdapter );
+
+//        pager.addView(new QuizResultFragment().newInstance("5/6"));
     }
 }

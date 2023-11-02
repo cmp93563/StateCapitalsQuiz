@@ -21,11 +21,11 @@ public class MainActivity extends AppCompatActivity {
 //        getSupportActionBar().setTitle();
         startButton = findViewById(R.id.startButton);
         pastQuizzesButton = findViewById(R.id.pastQuizzesButton);
-        startButton.setOnClickListener(new ButtonClickListener());
-        pastQuizzesButton.setOnClickListener(new ButtonClickListener());
+        startButton.setOnClickListener(new StartButtonClickListener());
+        pastQuizzesButton.setOnClickListener(new PastQuizzesButtonClickListener());
     }
 
-    private class ButtonClickListener implements View.OnClickListener {
+    private class StartButtonClickListener implements View.OnClickListener {
 
         /**
          * Handles overview or details button click
@@ -36,6 +36,18 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(view.getContext(), QuizActivity.class);
             startActivity(intent);
         }
+    }
 
+    private class PastQuizzesButtonClickListener implements View.OnClickListener {
+
+        /**
+         * Handles overview or details button click
+         * @param view the button
+         */
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), PastQuizzesActivity.class);
+            startActivity(intent);
+        }
     }
 }

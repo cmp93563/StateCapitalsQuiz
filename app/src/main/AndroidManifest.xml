@@ -13,12 +13,13 @@
         android:theme="@style/Theme.StateCapitalsQuiz"
         tools:targetApi="31">
         <activity
+            android:name=".PastQuizzesActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".QuizActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".QuizActivity"-->
-<!--            android:exported="false" />-->
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
