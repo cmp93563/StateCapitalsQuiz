@@ -6,8 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
@@ -22,48 +24,69 @@ public class QuizQuestionFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int questionNum;
+
+    private static final String[] questions = {
+            "What is the capital of GA?",
+            "What is the capital of GA?",
+            "What is the capital of GA?",
+            "What is the capital of GA?",
+            "What is the capital of GA?",
+            "What is the capital of GA?"
+    };
+
+    private static final String[][] choices = {
+            {"Atlanta", "Madison", "Seattle"},
+            {"Atlanta", "Madison", "Seattle"},
+            {"Atlanta", "Madison", "Seattle"},
+            {"Atlanta", "Madison", "Seattle"},
+            {"Atlanta", "Madison", "Seattle"},
+            {"Atlanta", "Madison", "Seattle"}
+    };
 
     public QuizQuestionFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment QuizQuestionFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static QuizQuestionFragment newInstance(String param1, String param2) {
+    public static QuizQuestionFragment newInstance(int questionNum) {
         QuizQuestionFragment fragment = new QuizQuestionFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        args.putInt( "questionNum", questionNum );
+        fragment.setArguments( args );
         return fragment;
     }
 
     @Override
-    public void onCreate(@NonNull View view, Bundle savedInstanceState ) {
+    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        if (getArguments() != null) {
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
 //        }
-
-
+        super.onCreate( savedInstanceState );
+        if( getArguments() != null ) {
+            questionNum = getArguments().getInt( "questionNum" );
+        }
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState ) {
         super.onViewCreated( view, savedInstanceState );
 
-        TextView titleView = view.findViewById( R.id.titleView );
-        TextView highlightsView = view.findViewById( R.id.highlightsView );
+        TextView textView = view.findViewById( R.id.question );
+        RadioButton radioButton1 = view.findViewById( R.id.choice1);
+        RadioButton radioButton2 = view.findViewById( R.id.choice2);
+        RadioButton radioButton3 = view.findViewById( R.id.choice3);
 
-        titleView.setText( androidVersions[ versionNum ] );
-        highlightsView.setText( androidVersionsInfo[ versionNum ] );
+        // set question and choices
+
+        textView.setText(questions[ questionNum ]);
+        radioButton1.setText("a");
+        radioButton2.setText("b");
+        radioButton3.setText("c");
+
+
+//        titleView.setText( androidVersions[ versionNum ] );
+//        highlightsView.setText( androidVersionsInfo[ versionNum ] );
     }
 
     @Override
@@ -71,5 +94,9 @@ public class QuizQuestionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_quiz_question, container, false);
+    }
+
+    public static int getNumberOfQuestions() {
+        return questions.length;
     }
 }

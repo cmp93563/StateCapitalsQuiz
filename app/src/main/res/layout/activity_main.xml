@@ -29,7 +29,7 @@
         android:textSize="34sp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -38,7 +38,7 @@
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/pastQuizzesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
