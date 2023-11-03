@@ -39,7 +39,7 @@ public class Quiz {
         this.q_6 = -1;
     }
 
-    public Quiz(String date, int result, int q_1, int q_2, int q_3, int q_4, int q_5, int q_6) {
+    public Quiz(String date, int result, int answered, int q_1, int q_2, int q_3, int q_4, int q_5, int q_6) {
         this.id = -1;
         this.date = null;
         this.result = -1;

@@ -156,7 +156,7 @@ public class QuizData {
                         colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q6);
                         int q6 = cursor.getInt(colIndex);
 
-                        Quiz quiz = new Quiz(date, result, q1, q2, q3, q4, q5, q6);
+                        Quiz quiz = new Quiz(date, result, answered, q1, q2, q3, q4, q5, q6);
                         quiz.setId(id);
 
                         quizzes.add(quiz);
