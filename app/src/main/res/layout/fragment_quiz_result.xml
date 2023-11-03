@@ -11,43 +11,26 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/question"
+        android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="1. Question"
+        android:text="You got X/6 correct."
         android:textSize="45sp" />
-
-    <RadioButton
-        android:id="@+id/choice1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="100px"
-        android:text="RadioButton"
-        android:textSize="20dp" />
-
-    <RadioButton
-        android:id="@+id/choice2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="100px"
-        android:text="RadioButton"
-        android:textSize="20dp" />
-
-    <RadioButton
-        android:id="@+id/choice3"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="100px"
-        android:text="RadioButton"
-        android:textSize="20dp" />
 
     <Button
         android:id="@+id/playAgainButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100px"
-        android:text="Submit" />
+        android:text="Play Again" />
+
+    <Button
+        android:id="@+id/pastQuizzes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px"
+        android:text="Past Quizzes" />
 
 </LinearLayout>
