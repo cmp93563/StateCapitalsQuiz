@@ -20,6 +20,13 @@
             android:name=".QuizActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
+
+            android:name=".QuizResults"
+            android:exported="false" />
+        <activity
+            android:name=".QuizQuestionPagerAdapter"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

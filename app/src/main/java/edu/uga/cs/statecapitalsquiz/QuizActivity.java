@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.os.Bundle;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -25,5 +26,6 @@ public class QuizActivity extends AppCompatActivity {
         pager.setAdapter( avpAdapter );
 
 //        pager.addView(new QuizResultFragment().newInstance("5/6"));
+
     }
 }
