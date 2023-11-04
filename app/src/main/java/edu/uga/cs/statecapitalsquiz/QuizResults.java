@@ -26,8 +26,8 @@ public class QuizResults extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button rankingButton = findViewById(R.id.button);
-        rankingButton.setOnClickListener(new ButtonClickListener());
+        //Button rankingButton = findViewById(R.id.button);
+        //rankingButton.setOnClickListener(new ButtonClickListener());
     }
 
     private class ButtonClickListener implements View.OnClickListener {

@@ -41,15 +41,15 @@ public class Quiz {
 
     public Quiz(String date, int result, int answered, int q_1, int q_2, int q_3, int q_4, int q_5, int q_6) {
         this.id = -1;
-        this.date = null;
-        this.result = -1;
-        this.answered = -1;
-        this.q_1 = -1;
-        this.q_2 = -1;
-        this.q_3 = -1;
-        this.q_4 = -1;
-        this.q_5 = -1;
-        this.q_6 = -1;
+        this.date = date;
+        this.result = result;
+        this.answered = answered;
+        this.q_1 = q_1;
+        this.q_2 = q_2;
+        this.q_3 = q_3;
+        this.q_4 = q_4;
+        this.q_5 = q_5;
+        this.q_6 = q_6;
     }
 
     public long getId() {

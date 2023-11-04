@@ -52,7 +52,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
                     + QUIZZES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + QUIZZES_COLUMN_DATE + " TEXT, "
                     + QUIZZES_COLUMN_RESULT + " INTEGER, "
-                    + QUIZZES_COLUMN_ANSWERED + "INTEGER, "
+                    + QUIZZES_COLUMN_ANSWERED + " INTEGER, "
                     + QUIZZES_COLUMN_Q1 + " INTEGER, "
                     + QUIZZES_COLUMN_Q2 + " INTEGER, "
                     + QUIZZES_COLUMN_Q3 + " INTEGER, "
