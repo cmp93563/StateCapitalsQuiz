@@ -27,6 +27,7 @@ public class QuizQuestionFragment extends Fragment {
 
     private int questionNum;
 
+
     private static final String[] questions = {
             "What is the capital of GA?",
             "What is the capital of GA?",
