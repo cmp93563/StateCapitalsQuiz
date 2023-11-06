@@ -73,12 +73,9 @@ public class QuizRecyclerAdapter
 
         Log.d( DEBUG_TAG, "onBindViewHolder: " + quiz );
 
-//        holder.date.setText( quiz.getDate());
-//        holder.time.setText( quiz.getDate() );
-//        holder.result.setText( quiz.getResult() );
-        holder.date.setText( "11/2/2023");
-        holder.time.setText( "10:00AM" );
-        holder.result.setText( "100%" );
+        holder.date.setText( quiz.getDate());
+        holder.time.setText( quiz.getDate() );
+        holder.result.setText( quiz.getResult() );
     }
 
     @Override

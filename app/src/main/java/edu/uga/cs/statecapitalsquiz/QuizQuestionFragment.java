@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -81,50 +83,77 @@ public class QuizQuestionFragment extends Fragment {
         }
 
     }
-    @Override
+
+        @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState ) {
         super.onViewCreated( view, savedInstanceState );
 
-        questions = new String[6];
-        choices = new String[6][3];
-
-        textView = view.findViewById( R.id.question );
-        radioButton1 = view.findViewById( R.id.choice1);
-        radioButton2 = view.findViewById( R.id.choice2);
-        radioButton3 = view.findViewById( R.id.choice3);
-
-        // randomize order of answers
-        a = new int[3];
-        Random ran = new Random();
-
-        // loop to fill array with unique random numbers 1-50
-        for (int i = 0; i < 3; i++) {
-            a[i] = ran.nextInt(3);
-
-            for (int j = 0; j < i; j++) {
-                if (a[i] == a[j]) {
-                    i--; //if a[i] is a duplicate of a[j], then run the outer loop on i again
-                    break;
-                } // if
-            }  // for
-        } // for
-
-        quizData = new QuizData(getActivity());
-        quizData.open();
-
-        new QuestionDBReader().execute();
-        new QuizDBReader().execute();
-
-
 //        titleView.setText( androidVersions[ versionNum ] );
 //        highlightsView.setText( androidVersionsInfo[ versionNum ] );
+
+        if (questionNum == getNumberOfQuestions()) {
+            textView = view.findViewById( R.id.score );
+            textView.setText("You got 5/6 correct.");
+        } else {
+            questions = new String[6];
+            choices = new String[6][3];
+
+            textView = view.findViewById( R.id.question );
+            radioButton1 = view.findViewById( R.id.choice1);
+            radioButton2 = view.findViewById( R.id.choice2);
+            radioButton3 = view.findViewById( R.id.choice3);
+
+            // randomize order of answers
+            a = new int[3];
+            Random ran = new Random();
+
+            // loop to fill array with unique random numbers 0-2
+            for (int i = 0; i < 3; i++) {
+                a[i] = ran.nextInt(3);
+
+                for (int j = 0; j < i; j++) {
+                    if (a[i] == a[j]) {
+                        i--; //if a[i] is a duplicate of a[j], then run the outer loop on i again
+                        break;
+                     } // if
+                }  // for
+             } // for
+
+            quizData = new QuizData(getActivity());
+            quizData.open();
+
+            new QuestionDBReader().execute();
+            new QuizDBReader().execute();
+
+     
+//            Button button = view.findViewById(R.id.btnGetItem);
+//            RadioGroup radioGroup = view.findViewById(R.id.radio);
+//            button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+//                    if (selectedRadioButtonId != -1) {
+//                        selectedRadioButton = view.findViewById(selectedRadioButtonId);
+//                        String selectedRbText = selectedRadioButton.getText().toString();
+//                        textView.setText(selectedRbText + " is Selected");
+//                    } else {
+//                        textView.setText("Nothing selected from the radio group");
+//                    }
+//                }
+//            });
+        }
+
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_quiz_question, container, false);
+        if (questionNum == getNumberOfQuestions()) {
+            return inflater.inflate(R.layout.fragment_quiz_result, container, false);        }
+        else {
+            return inflater.inflate(R.layout.fragment_quiz_question, container, false);
+        }
     }
 
     public static int getNumberOfQuestions() {

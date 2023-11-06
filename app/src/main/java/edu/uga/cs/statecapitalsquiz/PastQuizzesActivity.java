@@ -16,7 +16,7 @@ public class PastQuizzesActivity extends AppCompatActivity {
 
         Fragment fragment = new PastQuizzesFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
+        fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("Past Quizzes Activity" ).commit();
 
     }
 }
