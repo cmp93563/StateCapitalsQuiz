@@ -10,6 +10,7 @@ public class Quiz {
     private String date;
 
     private int result;
+
     private int answered;
 
     private int q_1;
@@ -25,8 +26,7 @@ public class Quiz {
     private int q_6;
 
 
-    public Quiz()
-    {
+    public Quiz() {
         this.id = -1;
         this.date = null;
         this.result = -1;

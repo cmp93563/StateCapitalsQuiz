@@ -19,14 +19,14 @@ public class QuizData {
     // helper obj to create/update/delete table data
     private SQLiteOpenHelper quizDBHelper;
 
-    /* !! i dont think we need this either
+    // !! i dont think we need this either
     private static final String[] questionColumns = {
             QuizDBHelper.QUESTIONS_COLUMN_ID,
             QuizDBHelper.QUESTIONS_COLUMN_STATE,
             QuizDBHelper.QUESTIONS_COLUMN_CAPITAL,
             QuizDBHelper.QUESTIONS_COLUMN_CITY_2,
             QuizDBHelper.QUESTIONS_COLUMN_CITY_3
-    }; */
+    };
 
     // table for quizzes columns
     private static final String[] quizColumns = {
@@ -44,6 +44,7 @@ public class QuizData {
 
     // constructor
     public QuizData( Context context ) {
+        context.deleteDatabase("capitalsquiz.db");
         this.quizDBHelper = QuizDBHelper.getInstance( context );
     }
 
@@ -65,55 +66,59 @@ public class QuizData {
         return db.isOpen();
     }
 
-    /* !! i don't actually think we need this method
+    // !! i don't actually think we need this method
     // retrieve all questions as list
     public List<QuizQuestion> retrieveAllQuestions() {
+
+        Log.d(DEBUG_TAG, "inside retrieveAllQuestions");
 
         ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
         Cursor cursor = null;
         int colIndex;
 
-        try {
-            cursor = db.query(QuizDBHelper.TABLE_QUESTIONS, questionColumns, null, null, null, null, null);
+            try {
+                cursor = db.query(QuizDBHelper.TABLE_QUESTIONS, questionColumns, null, null, null, null, null);
 
-            // store questions into list
-            if (cursor != null && cursor.getCount() < 0) {
+                // store questions into list
+                if (cursor != null && cursor.getCount() > 0) {
 
-                while(cursor.moveToNext()) {
+                    while (cursor.moveToNext()) {
 
-                    if (cursor.getColumnCount() >= 5) {
+                        if (cursor.getColumnCount() >= 5) {
 
-                        // get data from DB
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUESTIONS_COLUMN_ID);
-                        long id = cursor.getLong(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUESTIONS_COLUMN_STATE);
-                        String state = cursor.getString(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUESTIONS_COLUMN_CAPITAL);
-                        String capital = cursor.getString(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUESTIONS_COLUMN_CITY_2);
-                        String city2 = cursor.getString(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUESTIONS_COLUMN_CITY_3);
-                        String city3 = cursor.getString(colIndex);
+                            // get data from DB
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUESTIONS_COLUMN_ID);
+                            long id = cursor.getLong(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUESTIONS_COLUMN_STATE);
+                            String state = cursor.getString(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUESTIONS_COLUMN_CAPITAL);
+                            String capital = cursor.getString(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUESTIONS_COLUMN_CITY_2);
+                            String city2 = cursor.getString(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUESTIONS_COLUMN_CITY_3);
+                            String city3 = cursor.getString(colIndex);
 
-                        // new Question obj
-                        QuizQuestion question = new QuizQuestion(state, capital, city2, city3);
-                        question.setId(id);
+                            // new Question obj
+                            QuizQuestion question = new QuizQuestion(state, capital, city2, city3);
+                            question.setId(id);
 
-                        quizQuestions.add(question);
+                            quizQuestions.add(question);
 
-                        Log.d(DEBUG_TAG, "Retrieved question: " + question);
-                    } // if
-                } // while
-            } // if
-        } catch (Exception e) {
-            Log.d(DEBUG_TAG, "Exception: " + e);
-        }
-        finally {
-            if(cursor != null) { cursor.close(); }
-        }
+                            Log.d(DEBUG_TAG, "Retrieved question with id: " + question.getId());
+                        } // if
+                    } // while
+                } // if
+            } catch (Exception e) {
+                Log.d(DEBUG_TAG, "Exception: " + e);
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
         return quizQuestions;
-    } // QQ List
-    */
+        } // QQ List
+
+
 
     /**
      * This method will create and return a convenient list of Quiz objects from the
@@ -122,59 +127,61 @@ public class QuizData {
      * @return an ArrayList of Quiz objects
      */
     public List<Quiz> retrieveAllQuizzes() {
-        ArrayList<Quiz> quizzes = new ArrayList<>();
-        Cursor cursor = null;
-        int colIndex;
+            ArrayList<Quiz> quizzes = new ArrayList<>();
+            Cursor cursor = null;
+            int colIndex;
 
-        try {
+        Log.d(DEBUG_TAG, "inside retrieveAllQuizzes");
 
-            cursor = db.query(QuizDBHelper.TABLE_QUIZZES, quizColumns, null, null, null, null, null);
+            try {
 
-            if (cursor!= null && cursor.getCount() > 0) {
-                while (cursor.moveToNext()) {
-                    if (cursor.getColumnCount() >= 10) {
+                cursor = db.query(QuizDBHelper.TABLE_QUIZZES, quizColumns, null, null, null, null, null);
 
-                        // get vals
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_ID);
-                        long id = cursor.getLong(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_DATE);
-                        String date = cursor.getString(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_RESULT);
-                        int result = cursor.getInt(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_ANSWERED);
-                        int answered = cursor.getInt(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q1);
-                        int q1 = cursor.getInt(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q2);
-                        int q2 = cursor.getInt(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q3);
-                        int q3 = cursor.getInt(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q4);
-                        int q4 = cursor.getInt(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q5);
-                        int q5 = cursor.getInt(colIndex);
-                        colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q6);
-                        int q6 = cursor.getInt(colIndex);
+                if (cursor != null && cursor.getCount() > 0) {
+                    while (cursor.moveToNext()) {
+                        if (cursor.getColumnCount() >= 10) {
 
-                        Quiz quiz = new Quiz(date, result, answered, q1, q2, q3, q4, q5, q6);
-                        quiz.setId(id);
+                            // get vals
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_ID);
+                            long id = cursor.getLong(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_DATE);
+                            String date = cursor.getString(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_RESULT);
+                            int result = cursor.getInt(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_ANSWERED);
+                            int answered = cursor.getInt(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q1);
+                            int q1 = cursor.getInt(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q2);
+                            int q2 = cursor.getInt(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q3);
+                            int q3 = cursor.getInt(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q4);
+                            int q4 = cursor.getInt(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q5);
+                            int q5 = cursor.getInt(colIndex);
+                            colIndex = cursor.getColumnIndex(QuizDBHelper.QUIZZES_COLUMN_Q6);
+                            int q6 = cursor.getInt(colIndex);
 
-                        quizzes.add(quiz);
-                        Log.d(DEBUG_TAG, "Retrieved quiz: " + quiz);
-                    } // if
-                } // while
-            } // if
+                            Quiz quiz = new Quiz(date, result, answered, q1, q2, q3, q4, q5, q6);
+                            quiz.setId(id);
 
-        } catch (Exception e) {
-            Log.d(DEBUG_TAG, "Exception: " + e);
-        }
-        finally {
-            if (cursor != null) {
-                cursor.close();
+                            quizzes.add(quiz);
+                            Log.d(DEBUG_TAG, "Retrieved quiz with id: " + quiz.getId());
+                        } // if
+                    } // while
+                } // if
+
+            } catch (Exception e) {
+                Log.d(DEBUG_TAG, "Exception: " + e);
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
             }
+            Log.d(DEBUG_TAG, "quizzes.size(): " + quizzes.size());
+            return quizzes;
         }
-        return quizzes;
-    }
 
     /**
      * This method will take a quiz object and store it in the Quiz DB table.
@@ -215,12 +222,7 @@ public class QuizData {
         values.put(QuizDBHelper.QUESTIONS_COLUMN_CAPITAL, quizQuestion.getCapital());
         values.put(QuizDBHelper.QUESTIONS_COLUMN_CITY_2, quizQuestion.getCity2());
         values.put(QuizDBHelper.QUESTIONS_COLUMN_CITY_3, quizQuestion.getCity3());
-        /*
-        Log.d(DEBUG_TAG, "State Val= " + quizQuestion.getState());
-        Log.d(DEBUG_TAG, "Capital Val= " + quizQuestion.getCapital());
-        Log.d(DEBUG_TAG, "City2 Val= " + quizQuestion.getCity2());
-        Log.d(DEBUG_TAG, "City3 Val= " + quizQuestion.getCity3());
-        */
+
         Log.d(DEBUG_TAG, "after put values, before insert");
 
         long id = db.insert(QuizDBHelper.TABLE_QUESTIONS, null, values);
@@ -230,6 +232,29 @@ public class QuizData {
 
         return quizQuestion;
     } // storeQuestion
+
+    /*
+
+    public String doQuery(String query, int index) {
+        Cursor cursor = null;
+        String str = "";
+        cursor = db.rawQuery(query,null);
+        if (cursor != null && cursor.moveToFirst()) {
+            str = cursor.getString(0);
+        }
+        return str;
+    }
+*/
+    public int doQuery(String query) {
+        Cursor cursor = null;
+        int num = -1;
+        cursor = db.rawQuery(query, null);
+        if (!cursor.moveToFirst()) {
+            num = 0;
+        }
+        cursor.close();
+        return num;
+    }
 
 
 }
