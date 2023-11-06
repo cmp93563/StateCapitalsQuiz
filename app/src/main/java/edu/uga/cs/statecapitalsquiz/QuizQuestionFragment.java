@@ -82,21 +82,21 @@ public class QuizQuestionFragment extends Fragment {
             radioButton2.setText(choices [questionNum][1]);
             radioButton3.setText(choices [questionNum][2]);
 
-            Button button = view.findViewById(R.id.btnGetItem);
-            RadioGroup radioGroup = view.findViewById(R.id.radio);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
-                    if (selectedRadioButtonId != -1) {
-                        selectedRadioButton = view.findViewById(selectedRadioButtonId);
-                        String selectedRbText = selectedRadioButton.getText().toString();
-                        textView.setText(selectedRbText + " is Selected");
-                    } else {
-                        textView.setText("Nothing selected from the radio group");
-                    }
-                }
-            });
+//            Button button = view.findViewById(R.id.btnGetItem);
+//            RadioGroup radioGroup = view.findViewById(R.id.radio);
+//            button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+//                    if (selectedRadioButtonId != -1) {
+//                        selectedRadioButton = view.findViewById(selectedRadioButtonId);
+//                        String selectedRbText = selectedRadioButton.getText().toString();
+//                        textView.setText(selectedRbText + " is Selected");
+//                    } else {
+//                        textView.setText("Nothing selected from the radio group");
+//                    }
+//                }
+//            });
         }
     }
 
