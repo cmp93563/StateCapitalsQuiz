@@ -24,8 +24,5 @@ public class QuizActivity extends AppCompatActivity {
         pager.setOrientation(
                 ViewPager2.ORIENTATION_HORIZONTAL );
         pager.setAdapter( avpAdapter );
-
-//        pager.addView(new QuizResultFragment().newInstance("5/6"));
-
     }
 }

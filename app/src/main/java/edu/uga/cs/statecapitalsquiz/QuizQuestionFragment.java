@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
@@ -19,12 +21,6 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class QuizQuestionFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     private int questionNum;
 
     private static final String[] questions = {
@@ -65,25 +61,43 @@ public class QuizQuestionFragment extends Fragment {
             questionNum = getArguments().getInt( "questionNum" );
         }
     }
-    @Override
+
+        @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState ) {
         super.onViewCreated( view, savedInstanceState );
 
-        TextView textView = view.findViewById( R.id.question );
-        RadioButton radioButton1 = view.findViewById( R.id.choice1);
-        RadioButton radioButton2 = view.findViewById( R.id.choice2);
-        RadioButton radioButton3 = view.findViewById( R.id.choice3);
+        if (questionNum == getNumberOfQuestions()) {
+            TextView textView = view.findViewById( R.id.score );
+            textView.setText("You got 5/6 correct.");
+        } else {
+            TextView textView = view.findViewById( R.id.question );
+            RadioButton radioButton1 = view.findViewById( R.id.choice1);
+            RadioButton radioButton2 = view.findViewById( R.id.choice2);
+            RadioButton radioButton3 = view.findViewById( R.id.choice3);
 
-        // set question and choices
+            // set question and choices
 
-        textView.setText(questions[ questionNum ]);
-        radioButton1.setText("a");
-        radioButton2.setText("b");
-        radioButton3.setText("c");
+            textView.setText(questions[ questionNum ]);
+            radioButton1.setText(choices [questionNum][0]);
+            radioButton2.setText(choices [questionNum][1]);
+            radioButton3.setText(choices [questionNum][2]);
 
-
-//        titleView.setText( androidVersions[ versionNum ] );
-//        highlightsView.setText( androidVersionsInfo[ versionNum ] );
+//            Button button = view.findViewById(R.id.btnGetItem);
+//            RadioGroup radioGroup = view.findViewById(R.id.radio);
+//            button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+//                    if (selectedRadioButtonId != -1) {
+//                        selectedRadioButton = view.findViewById(selectedRadioButtonId);
+//                        String selectedRbText = selectedRadioButton.getText().toString();
+//                        textView.setText(selectedRbText + " is Selected");
+//                    } else {
+//                        textView.setText("Nothing selected from the radio group");
+//                    }
+//                }
+//            });
+        }
     }
 
 
@@ -91,7 +105,11 @@ public class QuizQuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_quiz_question, container, false);
+        if (questionNum == getNumberOfQuestions()) {
+            return inflater.inflate(R.layout.fragment_quiz_result, container, false);        }
+        else {
+            return inflater.inflate(R.layout.fragment_quiz_question, container, false);
+        }
     }
 
     public static int getNumberOfQuestions() {
