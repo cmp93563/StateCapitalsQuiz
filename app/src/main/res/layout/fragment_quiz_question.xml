@@ -20,6 +20,7 @@
         android:textSize="45sp" />
 
     <RadioGroup
+        android:id="@+id/radio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
@@ -19,12 +21,6 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class QuizQuestionFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     private int questionNum;
 
     private static final String[] questions = {
@@ -65,7 +61,8 @@ public class QuizQuestionFragment extends Fragment {
             questionNum = getArguments().getInt( "questionNum" );
         }
     }
-    @Override
+
+        @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState ) {
         super.onViewCreated( view, savedInstanceState );
 
@@ -84,11 +81,23 @@ public class QuizQuestionFragment extends Fragment {
             radioButton1.setText(choices [questionNum][0]);
             radioButton2.setText(choices [questionNum][1]);
             radioButton3.setText(choices [questionNum][2]);
+
+            Button button = view.findViewById(R.id.btnGetItem);
+            RadioGroup radioGroup = view.findViewById(R.id.radio);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+                    if (selectedRadioButtonId != -1) {
+                        selectedRadioButton = view.findViewById(selectedRadioButtonId);
+                        String selectedRbText = selectedRadioButton.getText().toString();
+                        textView.setText(selectedRbText + " is Selected");
+                    } else {
+                        textView.setText("Nothing selected from the radio group");
+                    }
+                }
+            });
         }
-
-
-//        titleView.setText( androidVersions[ versionNum ] );
-//        highlightsView.setText( androidVersionsInfo[ versionNum ] );
     }
 
 
