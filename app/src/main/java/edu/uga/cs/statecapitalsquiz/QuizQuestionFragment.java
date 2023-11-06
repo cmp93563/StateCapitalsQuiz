@@ -81,9 +81,9 @@ public class QuizQuestionFragment extends Fragment {
             // set question and choices
 
             textView.setText(questions[ questionNum ]);
-            radioButton1.setText("a");
-            radioButton2.setText("b");
-            radioButton3.setText("c");
+            radioButton1.setText(choices [questionNum][0]);
+            radioButton2.setText(choices [questionNum][1]);
+            radioButton3.setText(choices [questionNum][2]);
         }
 
 
