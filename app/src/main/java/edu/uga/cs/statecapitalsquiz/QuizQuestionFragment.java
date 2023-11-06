@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link QuizQuestionFragment#newInstance} factory method to
@@ -43,6 +44,7 @@ public class QuizQuestionFragment extends Fragment {
             {"Atlanta", "Madison", "Seattle"},
             {"Atlanta", "Madison", "Seattle"}
     };
+
 
     public QuizQuestionFragment() {
         // Required empty public constructor
@@ -89,6 +91,7 @@ public class QuizQuestionFragment extends Fragment {
 //        highlightsView.setText( androidVersionsInfo[ versionNum ] );
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,4 +106,5 @@ public class QuizQuestionFragment extends Fragment {
     public static int getNumberOfQuestions() {
         return questions.length;
     }
+
 }
