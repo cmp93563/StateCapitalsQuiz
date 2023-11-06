@@ -18,11 +18,8 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         ViewPager2 pager = findViewById( R.id.viewpager );
-        QuizQuestionPagerAdapter avpAdapter = new
-                QuizQuestionPagerAdapter(
-                getSupportFragmentManager(), getLifecycle() );
-        pager.setOrientation(
-                ViewPager2.ORIENTATION_HORIZONTAL );
+        QuizQuestionPagerAdapter avpAdapter = new QuizQuestionPagerAdapter(getSupportFragmentManager(), getLifecycle() );
+        pager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL );
         pager.setAdapter( avpAdapter );
 
 //        pager.addView(new QuizResultFragment().newInstance("5/6"));
