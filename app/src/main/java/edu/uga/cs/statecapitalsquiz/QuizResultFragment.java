@@ -44,7 +44,7 @@ public class QuizResultFragment extends Fragment {
 
         TextView textView = view.findViewById( R.id.score );
         RadioButton playAgainButton = view.findViewById( R.id.playAgainButton);
-        RadioButton pastQuizzesButton = view.findViewById( R.id.pastQuizzes);
+//        RadioButton pastQuizzesButton = view.findViewById( R.id.pastQuizzes);
 
         // set question and choices
 
