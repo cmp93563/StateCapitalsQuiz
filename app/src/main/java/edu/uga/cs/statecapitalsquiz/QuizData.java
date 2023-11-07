@@ -44,7 +44,7 @@ public class QuizData {
 
     // constructor
     public QuizData( Context context ) {
-        context.deleteDatabase("capitalsquiz.db");
+        //context.deleteDatabase("capitalsquiz.db");
         this.quizDBHelper = QuizDBHelper.getInstance( context );
     }
 
@@ -70,7 +70,7 @@ public class QuizData {
     // retrieve all questions as list
     public List<QuizQuestion> retrieveAllQuestions() {
 
-        Log.d(DEBUG_TAG, "inside retrieveAllQuestions");
+        //Log.d(DEBUG_TAG, "inside retrieveAllQuestions");
 
         ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
         Cursor cursor = null;
@@ -104,7 +104,7 @@ public class QuizData {
 
                             quizQuestions.add(question);
 
-                            Log.d(DEBUG_TAG, "Retrieved question with id: " + question.getId());
+                            //Log.d(DEBUG_TAG, "Retrieved question with id: " + question.getId());
                         } // if
                     } // while
                 } // if
@@ -131,7 +131,7 @@ public class QuizData {
             Cursor cursor = null;
             int colIndex;
 
-        Log.d(DEBUG_TAG, "inside retrieveAllQuizzes");
+        //Log.d(DEBUG_TAG, "inside retrieveAllQuizzes");
 
             try {
 
@@ -167,7 +167,7 @@ public class QuizData {
                             quiz.setId(id);
 
                             quizzes.add(quiz);
-                            Log.d(DEBUG_TAG, "Retrieved quiz with id: " + quiz.getId());
+                            //Log.d(DEBUG_TAG, "Retrieved quiz with id: " + quiz.getId());
                         } // if
                     } // while
                 } // if
@@ -179,7 +179,7 @@ public class QuizData {
                     cursor.close();
                 }
             }
-            Log.d(DEBUG_TAG, "quizzes.size(): " + quizzes.size());
+            //Log.d(DEBUG_TAG, "quizzes.size(): " + quizzes.size());
             return quizzes;
         }
 
@@ -254,6 +254,18 @@ public class QuizData {
         }
         cursor.close();
         return num;
+    }
+
+
+    public void storeItems(int id, String date, int result, int answered) {
+        String query = "UPDATE " + QuizDBHelper.TABLE_QUIZZES +
+                        " SET " + QuizDBHelper.QUIZZES_COLUMN_DATE + " = " + date + ", "
+                        + QuizDBHelper.QUIZZES_COLUMN_RESULT + " = " + result + ", "
+                        + QuizDBHelper.QUIZZES_COLUMN_ANSWERED + " = " + answered
+                        + " WHERE " + QuizDBHelper.QUIZZES_COLUMN_ID + " = " + id;
+
+        db.execSQL(query);
+        Log.d(DEBUG_TAG, "stored items in QuizData class");
     }
 
 
