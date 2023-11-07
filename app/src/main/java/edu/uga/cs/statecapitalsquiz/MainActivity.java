@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String DEBUG_TAG = "MainActivity";
     private Button startButton;
     private Button pastQuizzesButton;
-    private QuizData quizData = null;
+    private static QuizData quizData = null;
     private int[] a = new int[6];
 
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // after quiz is created - store into DB ASYNCHRONOUSLY
-    public class QuizDBWriter extends AsyncTask<Quiz, Quiz> {
+    public static class QuizDBWriter extends AsyncTask<Quiz, Quiz> {
 
         @Override
         protected Quiz doInBackground(Quiz... quizzes) {

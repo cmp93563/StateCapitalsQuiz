@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
@@ -29,10 +30,7 @@ public class QuizQuestionFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private static final String DEBUG_TAG = "QQFragment";
+    private final String DEBUG_TAG = "QQFragment";
 
     private int questionNum;
 
@@ -43,6 +41,10 @@ public class QuizQuestionFragment extends Fragment {
     private List<Quiz> quizList;
 
     private int[] indices;
+
+
+    private Button playAgainButton;
+    private Button pastQuizzesButton;
 
     private int currentQuiz;
     private int index1;
@@ -84,6 +86,34 @@ public class QuizQuestionFragment extends Fragment {
 
     }
 
+    private class HomeButtonClickListener implements View.OnClickListener {
+
+        /**
+         * Handles overview or details button click
+         *
+         * @param view the button
+         */
+        @Override
+        public void onClick (View view) {
+            Intent intent = new Intent(view.getContext(), MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
+//    private class PastQuizzesButtonClickListener implements View.OnClickListener {
+//
+//        /**
+//         * Handles overview or details button click
+//         *
+//         * @param view the button
+//         */
+//        @Override
+//        public void onClick(View view) {
+//            Intent intent = new Intent(view.getContext(), PastQuizzesActivity.class);
+//            startActivity(intent);
+//        }
+//    }
+
         @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState ) {
         super.onViewCreated( view, savedInstanceState );
@@ -94,6 +124,11 @@ public class QuizQuestionFragment extends Fragment {
         if (questionNum == getNumberOfQuestions()) {
             textView = view.findViewById( R.id.score );
             textView.setText("You got 5/6 correct.");
+
+            playAgainButton = view.findViewById(R.id.playAgainButton);
+//            pastQuizzesButton = view.findViewById(R.id.pastQuizzes);
+            playAgainButton.setOnClickListener(new HomeButtonClickListener());
+//            pastQuizzesButton.setOnClickListener(new PastQuizzesButtonClickListener());
         } else {
             questions = new String[6];
             choices = new String[6][3];

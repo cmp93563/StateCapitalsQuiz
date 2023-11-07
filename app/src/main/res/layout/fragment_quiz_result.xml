@@ -24,13 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100px"
-        android:text="Play Again" />
-
-    <Button
-        android:id="@+id/pastQuizzes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100px"
-        android:text="Past Quizzes" />
+        android:text="Home" />
 
 </LinearLayout>
