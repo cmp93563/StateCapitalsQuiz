@@ -63,6 +63,8 @@ public class QuizQuestionFragment extends Fragment {
     private static String[] questions;
     private static String[][] choices;
 
+    Button homeButton;
+
 
     public QuizQuestionFragment() {
         // Required empty public constructor
@@ -71,16 +73,16 @@ public class QuizQuestionFragment extends Fragment {
     public static QuizQuestionFragment newInstance(int questionNum) {
         QuizQuestionFragment fragment = new QuizQuestionFragment();
         Bundle args = new Bundle();
-        args.putInt( "questionNum", questionNum );
-        fragment.setArguments( args );
+        args.putInt("questionNum", questionNum);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        if( getArguments() != null ) {
-            questionNum = getArguments().getInt( "questionNum" );
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            questionNum = getArguments().getInt("questionNum");
         }
         //Log.d(DEBUG_TAG, "inside onCreate(), questionNum = " + questionNum);
 
@@ -94,170 +96,124 @@ public class QuizQuestionFragment extends Fragment {
          * @param view the button
          */
         @Override
-        public void onClick (View view) {
+        public void onClick(View view) {
             Intent intent = new Intent(view.getContext(), MainActivity.class);
             startActivity(intent);
         }
     }
 
-//    private class PastQuizzesButtonClickListener implements View.OnClickListener {
-//
-//        /**
-//         * Handles overview or details button click
-//         *
-//         * @param view the button
-//         */
-//        @Override
-//        public void onClick(View view) {
-//            Intent intent = new Intent(view.getContext(), PastQuizzesActivity.class);
-//            startActivity(intent);
-//        }
-//    }
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        quizData = new QuizData(getActivity());
+        quizData.open();
 
-        @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState ) {
-//        super.onViewCreated( view, savedInstanceState );
-//
-////        titleView.setText( androidVersions[ versionNum ] );
-////        highlightsView.setText( androidVersionsInfo[ versionNum ] );
-//
-//        if (questionNum == getNumberOfQuestions()) {
-//            textView = view.findViewById( R.id.score );
-//            textView.setText("You got 5/6 correct.");
-//
-//            playAgainButton = view.findViewById(R.id.playAgainButton);
-////            pastQuizzesButton = view.findViewById(R.id.pastQuizzes);
-//            playAgainButton.setOnClickListener(new HomeButtonClickListener());
-////            pastQuizzesButton.setOnClickListener(new PastQuizzesButtonClickListener());
-//        } else {
-//            questions = new String[6];
-//            choices = new String[6][3];
-//
-//            textView = view.findViewById( R.id.question );
-//            radioButton1 = view.findViewById( R.id.choice1);
-//            radioButton2 = view.findViewById( R.id.choice2);
-//            radioButton3 = view.findViewById( R.id.choice3);
-//
-//            // randomize order of answers
-//            a = new int[3];
-//            Random ran = new Random();
-//
-//            // loop to fill array with unique random numbers 0-2
-//            for (int i = 0; i < 3; i++) {
-//                a[i] = ran.nextInt(3);
-//
-//                for (int j = 0; j < i; j++) {
-//                    if (a[i] == a[j]) {
-//                        i--; //if a[i] is a duplicate of a[j], then run the outer loop on i again
-//                        break;
-//                     } // if
-//                }  // for
-//             } // for
-            super.onViewCreated(view, savedInstanceState);
-            quizData = new QuizData(getActivity());
-            quizData.open();
-
-            if (questionNum == getNumberOfQuestions()) {
-                if (questionScore == 1) {
-                    result++;
-                    Log.d(DEBUG_TAG, "incremented result to : " + result);
-                }
-
-                //get current date/time on final swipe
-                DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-                date = dateFormat.format(new Date());
-
-                Log.d(DEBUG_TAG, "result: " + result);
-                Log.d(DEBUG_TAG, "date: " + date);
-
-                textView = view.findViewById(R.id.score);
-
-                new writeItems().execute();
-
-            } else {
-
-                Log.d(DEBUG_TAG, "on new, questionScore = " + questionScore);
-                // update score
-                if (questionScore == 1) {
-                    result++;
-                    Log.d(DEBUG_TAG, "incremented result to : " + result);
-                }
-
-                questions = new String[6];
-                choices = new String[6][3];
-
-                textView = view.findViewById(R.id.question);
-                radioButton1 = view.findViewById(R.id.choice1);
-                radioButton2 = view.findViewById(R.id.choice2);
-                radioButton3 = view.findViewById(R.id.choice3);
-
-                // randomize order of answers
-                a = new int[3];
-                Random ran = new Random();
-
-                // loop to fill array with unique random numbers 0-2
-                for (int i = 0; i < 3; i++) {
-                    a[i] = ran.nextInt(3);
-
-                    for (int j = 0; j < i; j++) {
-                        if (a[i] == a[j]) {
-                            i--; //if a[i] is a duplicate of a[j], then run the outer loop on i again
-                            break;
-                        } // if
-                    }  // for
-                } // for
-
-                new QuestionDBReader().execute();
-                new QuizDBReader().execute();
-
-                RadioGroup group = view.findViewById(R.id.radio);
-                group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        RadioButton rb = view.findViewById(checkedId);
-
-                        // parse answer to get rid of a. b. c.
-                        String ans = rb.getText().toString();
-                        String[] parts = ans.split(" ");
-                        String parsedAns = "";
-                        if (parts.length == 2) {
-                            parsedAns = parts[1];
-                        } else if (parts.length == 3) {
-                            parsedAns = parts[1] + " " + parts[2];
-                        } else if (parts.length == 4) {
-                            parsedAns = parts[1] + " " + parts[2] + " " + parts[3];
-                        }
-                        Log.d(DEBUG_TAG, "parsed answer: " + parsedAns);
-
-                        String correctAns = questionsList.get(indices[questionNum] - 1).getCapital();
-                        Log.d(DEBUG_TAG, "correctAns: " + correctAns);
-
-                        if (Objects.equals(correctAns, parsedAns)) {
-                            questionScore = 1;
-                        } else {
-                            questionScore = 0;
-                        }
-
-                        Log.d(DEBUG_TAG, "questionNum= " + questionNum);
-                        // as long as numAnswered is not greater than current question, ++
-                        if (answered < questionNum + 1) {
-                            answered++;
-                        }
-
-                        Log.d(DEBUG_TAG, "questionScore= " + questionScore);
-                        Log.d(DEBUG_TAG, "answered= " + answered);
-                    }
-                });
+        if (questionNum == getNumberOfQuestions()) {
+            if (questionScore == 1) {
+                result++;
+                Log.d(DEBUG_TAG, "incremented result to : " + result);
             }
-        } // onViewCreated
+
+            //get current date/time on final swipe
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            date = dateFormat.format(new Date());
+
+            Log.d(DEBUG_TAG, "result: " + result);
+            Log.d(DEBUG_TAG, "date: " + date);
+
+            textView = view.findViewById(R.id.score);
+
+
+            homeButton = view.findViewById(R.id.homeButton);
+            homeButton.setOnClickListener(new HomeButtonClickListener());
+
+            new writeItems().execute();
+
+        } else {
+
+            Log.d(DEBUG_TAG, "on new, questionScore = " + questionScore);
+            // update score
+            if (questionScore == 1) {
+                result++;
+                Log.d(DEBUG_TAG, "incremented result to : " + result);
+            }
+
+            questions = new String[6];
+            choices = new String[6][3];
+
+            textView = view.findViewById(R.id.question);
+            radioButton1 = view.findViewById(R.id.choice1);
+            radioButton2 = view.findViewById(R.id.choice2);
+            radioButton3 = view.findViewById(R.id.choice3);
+
+            // randomize order of answers
+            a = new int[3];
+            Random ran = new Random();
+
+            // loop to fill array with unique random numbers 0-2
+            for (int i = 0; i < 3; i++) {
+                a[i] = ran.nextInt(3);
+
+                for (int j = 0; j < i; j++) {
+                    if (a[i] == a[j]) {
+                        i--; //if a[i] is a duplicate of a[j], then run the outer loop on i again
+                        break;
+                    } // if
+                }  // for
+            } // for
+
+            new QuestionDBReader().execute();
+            new QuizDBReader().execute();
+
+            RadioGroup group = view.findViewById(R.id.radio);
+            group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    RadioButton rb = view.findViewById(checkedId);
+
+                    // parse answer to get rid of a. b. c.
+                    String ans = rb.getText().toString();
+                    String[] parts = ans.split(" ");
+                    String parsedAns = "";
+                    if (parts.length == 2) {
+                        parsedAns = parts[1];
+                    } else if (parts.length == 3) {
+                        parsedAns = parts[1] + " " + parts[2];
+                    } else if (parts.length == 4) {
+                        parsedAns = parts[1] + " " + parts[2] + " " + parts[3];
+                    }
+                    Log.d(DEBUG_TAG, "parsed answer: " + parsedAns);
+
+                    String correctAns = questionsList.get(indices[questionNum] - 1).getCapital();
+                    Log.d(DEBUG_TAG, "correctAns: " + correctAns);
+
+                    if (Objects.equals(correctAns, parsedAns)) {
+                        questionScore = 1;
+                    } else {
+                        questionScore = 0;
+                    }
+
+                    Log.d(DEBUG_TAG, "questionNum= " + questionNum);
+                    // as long as numAnswered is not greater than current question, ++
+                    if (answered < questionNum + 1) {
+                        answered++;
+                    }
+
+                    Log.d(DEBUG_TAG, "questionScore= " + questionScore);
+                    Log.d(DEBUG_TAG, "answered= " + answered);
+                }
+            });
+        }
+    } // onViewCreated
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         // Inflate the layout for this fragment
         if (questionNum == getNumberOfQuestions()) {
-            return inflater.inflate(R.layout.fragment_quiz_result, container, false);        }
-        else {
+            return inflater.inflate(R.layout.fragment_quiz_result, container, false);
+        } else {
             return inflater.inflate(R.layout.fragment_quiz_question, container, false);
         }
     }
@@ -270,14 +226,14 @@ public class QuizQuestionFragment extends Fragment {
     private class QuestionDBReader extends AsyncTask<Void, List<QuizQuestion>> {
 
         @Override
-        protected List<QuizQuestion> doInBackground( Void... params ) {
+        protected List<QuizQuestion> doInBackground(Void... params) {
             questionsList = quizData.retrieveAllQuestions();
 
             return questionsList;
         }
 
         @Override
-        protected void onPostExecute( List<QuizQuestion> qsList ) {
+        protected void onPostExecute(List<QuizQuestion> qsList) {
             //questionsList.addAll(qsList);
             Log.d(DEBUG_TAG, "questions post execute");
         }
@@ -286,26 +242,26 @@ public class QuizQuestionFragment extends Fragment {
     private class QuizDBReader extends AsyncTask<Void, List<Quiz>> {
 
         @Override
-        protected List<Quiz> doInBackground( Void... params ) {
+        protected List<Quiz> doInBackground(Void... params) {
             quizList = quizData.retrieveAllQuizzes();
 
             return quizList;
         }
 
         @Override
-        protected void onPostExecute( List<Quiz> qzList ) {
+        protected void onPostExecute(List<Quiz> qzList) {
             //quizList.addAll(qzList);
 
             currentQuiz = quizList.size();
             Log.d(DEBUG_TAG, "currentQuiz: " + currentQuiz);
-            index1 = quizList.get(currentQuiz-1).getQ_1();
-            index2 = quizList.get(currentQuiz-1).getQ_2();
-            index3 = quizList.get(currentQuiz-1).getQ_3();
-            index4 = quizList.get(currentQuiz-1).getQ_4();
-            index5 = quizList.get(currentQuiz-1).getQ_5();
-            index6 = quizList.get(currentQuiz-1).getQ_6();
+            index1 = quizList.get(currentQuiz - 1).getQ_1();
+            index2 = quizList.get(currentQuiz - 1).getQ_2();
+            index3 = quizList.get(currentQuiz - 1).getQ_3();
+            index4 = quizList.get(currentQuiz - 1).getQ_4();
+            index5 = quizList.get(currentQuiz - 1).getQ_5();
+            index6 = quizList.get(currentQuiz - 1).getQ_6();
 
-            indices = new int[] {index1, index2, index3, index4, index5, index6};
+            indices = new int[]{index1, index2, index3, index4, index5, index6};
 
             Log.d(DEBUG_TAG, "indices: [" + index1 + " " + index2 + " " + index3 + " " + index4 + " " + index5 + " " + index6 + "]");
 
@@ -313,7 +269,7 @@ public class QuizQuestionFragment extends Fragment {
             choices = createChoicesArr(indices);
 
             // set question and choices
-            textView.setText(questions[ questionNum ]);
+            textView.setText(questions[questionNum]);
             radioButton1.setText("a. " + choices[questionNum][a[0]]);
             radioButton2.setText("b. " + choices[questionNum][a[1]]);
             radioButton3.setText("c. " + choices[questionNum][a[2]]);
@@ -329,7 +285,7 @@ public class QuizQuestionFragment extends Fragment {
             Log.d(DEBUG_TAG, "in writeItems, date = " + date);
             Log.d(DEBUG_TAG, "in writeItems, result = " + result);
             Log.d(DEBUG_TAG, "in writeItems, answered = " + answered);
-            quizData.storeItems(currentQuiz, "'"+ date +"'", result, answered);
+            quizData.storeItems(currentQuiz, "'" + date + "'", result, answered);
             return quizList;
         }
 
@@ -343,12 +299,12 @@ public class QuizQuestionFragment extends Fragment {
     public String[] createQuestionsArr(int[] indices) {
         String[] qs = new String[6];
         // get values from DB
-        String q1 = questionsList.get(indices[0]-1).getState();
-        String q2 = questionsList.get(indices[1]-1).getState();
-        String q3 = questionsList.get(indices[2]-1).getState();
-        String q4 = questionsList.get(indices[3]-1).getState();
-        String q5 = questionsList.get(indices[4]-1).getState();
-        String q6 = questionsList.get(indices[5]-1).getState();
+        String q1 = questionsList.get(indices[0] - 1).getState();
+        String q2 = questionsList.get(indices[1] - 1).getState();
+        String q3 = questionsList.get(indices[2] - 1).getState();
+        String q4 = questionsList.get(indices[3] - 1).getState();
+        String q5 = questionsList.get(indices[4] - 1).getState();
+        String q6 = questionsList.get(indices[5] - 1).getState();
 
         qs[0] = "1. What is the capital of " + q1 + "?";
         qs[1] = "2. What is the capital of " + q2 + "?";
@@ -364,29 +320,29 @@ public class QuizQuestionFragment extends Fragment {
 
     public String[][] createChoicesArr(int[] indices) {
         String[][] as = new String[6][3];
-        String a1_1 = questionsList.get(indices[0]-1).getCapital();
-        String a1_2 = questionsList.get(indices[0]-1).getCity2();
-        String a1_3 = questionsList.get(indices[0]-1).getCity3();
+        String a1_1 = questionsList.get(indices[0] - 1).getCapital();
+        String a1_2 = questionsList.get(indices[0] - 1).getCity2();
+        String a1_3 = questionsList.get(indices[0] - 1).getCity3();
 
-        String a2_1 = questionsList.get(indices[1]-1).getCapital();
-        String a2_2 = questionsList.get(indices[1]-1).getCity2();
-        String a2_3 = questionsList.get(indices[1]-1).getCity3();
+        String a2_1 = questionsList.get(indices[1] - 1).getCapital();
+        String a2_2 = questionsList.get(indices[1] - 1).getCity2();
+        String a2_3 = questionsList.get(indices[1] - 1).getCity3();
 
-        String a3_1 = questionsList.get(indices[2]-1).getCapital();
-        String a3_2 = questionsList.get(indices[2]-1).getCity2();
-        String a3_3 = questionsList.get(indices[2]-1).getCity3();
+        String a3_1 = questionsList.get(indices[2] - 1).getCapital();
+        String a3_2 = questionsList.get(indices[2] - 1).getCity2();
+        String a3_3 = questionsList.get(indices[2] - 1).getCity3();
 
-        String a4_1 = questionsList.get(indices[3]-1).getCapital();
-        String a4_2 = questionsList.get(indices[3]-1).getCity2();
-        String a4_3 = questionsList.get(indices[3]-1).getCity3();
+        String a4_1 = questionsList.get(indices[3] - 1).getCapital();
+        String a4_2 = questionsList.get(indices[3] - 1).getCity2();
+        String a4_3 = questionsList.get(indices[3] - 1).getCity3();
 
-        String a5_1 = questionsList.get(indices[4]-1).getCapital();
-        String a5_2 = questionsList.get(indices[4]-1).getCity2();
-        String a5_3 = questionsList.get(indices[4]-1).getCity3();
+        String a5_1 = questionsList.get(indices[4] - 1).getCapital();
+        String a5_2 = questionsList.get(indices[4] - 1).getCity2();
+        String a5_3 = questionsList.get(indices[4] - 1).getCity3();
 
-        String a6_1 = questionsList.get(indices[5]-1).getCapital();
-        String a6_2 = questionsList.get(indices[5]-1).getCity2();
-        String a6_3 = questionsList.get(indices[5]-1).getCity3();
+        String a6_1 = questionsList.get(indices[5] - 1).getCapital();
+        String a6_2 = questionsList.get(indices[5] - 1).getCity2();
+        String a6_3 = questionsList.get(indices[5] - 1).getCity3();
 
         as[0][0] = a1_1;
         as[0][1] = a1_2;
