@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Button pastQuizzesButton;
     private static QuizData quizData = null;
     private int[] a = new int[6];
+    private static int empty;
 
 
     @Override
@@ -55,24 +56,31 @@ public class MainActivity extends AppCompatActivity {
             Log.d(DEBUG_TAG, "opened DB");
         }
 
-        // if table is null - read questions file into DB
-        String query = "SELECT * FROM quizQuestions";
-        int empty = quizData.doQuery(query);
-        Log.d(DEBUG_TAG, "val of empty = " + empty);
-        if (empty == 0) {
-            // read file
-            Log.d(DEBUG_TAG, "table is empty");
-            readQuestions();
-        } else {Log.d(DEBUG_TAG, "table is not empty");}
+        new readInitial().execute();
+
+    }
+
+    private class readInitial extends AsyncTask<Void, List<QuizQuestion>> {
+
+        @Override
+        protected List<QuizQuestion> doInBackground(Void... arguments) {
+            String query = "SELECT * FROM quizQuestions";
+            empty = quizData.doQuery(query);
+            return new ArrayList<QuizQuestion>();
+        }
+
+        @Override
+        protected void onPostExecute(List<QuizQuestion> quizQuestions) {
+            if (empty == 0) {
+                // read file
+                Log.d(DEBUG_TAG, "table is empty");
+                readQuestions();
+            } else {Log.d(DEBUG_TAG, "table is not empty");}
+        }
     }
 
     private class StartButtonClickListener implements View.OnClickListener {
 
-        /**
-         * Handles overview or details button click
-         *
-         * @param view the button
-         */
         @Override
         public void onClick(View view) {
 
@@ -84,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for (int j = 0; j < i; j++) {
                     if (a[i] == a[j]) {
-                        i--; //if a[i] is a duplicate of a[j], then run the outer loop on i again
+                        i--; //if a[i] is a duplicate of a[j], run outer loop on i again
                         break;
                     } // if
                 }  // for
@@ -103,11 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
     private class PastQuizzesButtonClickListener implements View.OnClickListener {
 
-        /**
-         * Handles overview or details button click
-         *
-         * @param view the button
-         */
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(view.getContext(), PastQuizzesActivity.class);
