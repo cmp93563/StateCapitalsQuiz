@@ -74,48 +74,26 @@ public class PastQuizzesFragment extends Fragment {
         super.onViewCreated( view, savedInstanceState );
 
         recyclerView = getView().findViewById( R.id.recyclerView );
-//        FloatingActionButton floatingButton = getView().findViewById( R.id.floatingActionButton );
-
-//        floatingButton.setOnClickListener(v -> {
-//            AddJobLeadDialogFragment newFragment = new AddJobLeadDialogFragment();
-//            newFragment.setHostFragment( PastQuizzesFragment.this );
-//            newFragment.show( getParentFragmentManager(), null );
-//        });
 
         // use a linear layout manager for the recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( getActivity() );
         recyclerView.setLayoutManager( layoutManager );
 
         quizzesList = new ArrayList<>();
-
-        // Create a JobLeadsData instance, since we will need to save a new JobLead to the dn.
-        // Note that even though more activites may create their own instances of the JobLeadsData
-        // class, we will be using a single instance of the JobLeadsDBHelper object, since
-        // that class is a singleton class.
         quizData = new QuizData( getActivity() );
-
-        // Open that database for reading of the full list of job leads.
-        // Note that onResume() hasn't been called yet, so the db open in it
-        // was not called yet!
         quizData.open();
 
-        // Execute the retrieval of the job leads in an asynchronous way,
-        // without blocking the main UI thread.
-        new JobLeadDBReader().execute();
+        new QuizzesDBReader().execute();
 
     }
 
     // This is an AsyncTask class (it extends AsyncTask) to perform DB reading of job leads, asynchronously.
-    private class JobLeadDBReader extends AsyncTask<Void, List<Quiz>> {
-        // This method will run as a background process to read from db.
-        // It returns a list of retrieved JobLead objects.
-        // It will be automatically invoked by Android, when we call the execute method
-        // in the onCreate callback (the job leads review activity is started).
+    private class QuizzesDBReader extends AsyncTask<Void, List<Quiz>> {
         @Override
         protected List<Quiz> doInBackground( Void... params ) {
             List<Quiz> quizzesList = quizData.retrieveAllQuizzes();
 
-            Log.d( TAG, "JobLeadDBReader: Job leads retrieved: " + quizzesList.size() );
+            Log.d( TAG, "QuizzesDBReader: Job leads retrieved: " + quizzesList.size() );
 
             return quizzesList;
         }
@@ -126,7 +104,7 @@ public class PastQuizzesFragment extends Fragment {
         // onPostExecute is like the notify method in an asynchronous method call discussed in class.
         @Override
         protected void onPostExecute( List<Quiz> jobsList ) {
-            Log.d( TAG, "JobLeadDBReader: jobsList.size(): " + jobsList.size() );
+            Log.d( TAG, "QuizzesDBReader: jobsList.size(): " + jobsList.size() );
             quizzesList.addAll( jobsList );
 
             // create the RecyclerAdapter and set it for the RecyclerView
