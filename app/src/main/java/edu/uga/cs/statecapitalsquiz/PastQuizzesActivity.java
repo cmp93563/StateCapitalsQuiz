@@ -1,11 +1,10 @@
 package edu.uga.cs.statecapitalsquiz;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.os.Bundle;
 
 /**
  * This class is the layout for the past quizzes fragment.

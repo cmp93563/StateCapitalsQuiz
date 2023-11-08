@@ -91,39 +91,4 @@ public class QuizRecyclerAdapter
         else
             return 0;
     }
-
-//    @Override
-//    public Filter getFilter() {
-//        Filter filter = new Filter() {
-//
-//            @Override
-//            protected FilterResults performFiltering(CharSequence constraint) {
-//                List<Quiz> list = new ArrayList<Quiz>(originalValues);
-//                FilterResults filterResults = new FilterResults();
-//                if (constraint == null || constraint.length() == 0) {
-//                    filterResults.count = list.size();
-//                    filterResults.values = list;
-//                } else {
-//                    List<Quiz> resultsModel = new ArrayList<>();
-//                    String searchStr = constraint.toString().toLowerCase();
-//
-//                    filterResults.count = resultsModel.size();
-//                    filterResults.values = resultsModel;
-//                }
-//
-//                return filterResults;
-//            }
-//
-//            @Override
-//            protected void publishResults(CharSequence constraint, FilterResults results) {
-//                values = (ArrayList<Quiz>) results.values;
-//                notifyDataSetChanged();
-//                if (values.size() == 0) {
-//                    Toast.makeText(context, "Not Found", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//        };
-//        return filter;
-//    }
 }

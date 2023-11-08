@@ -1,14 +1,9 @@
 package edu.uga.cs.statecapitalsquiz;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.os.Bundle;
 
 /**
  * This class is a layout for the quiz questions. The quiz
