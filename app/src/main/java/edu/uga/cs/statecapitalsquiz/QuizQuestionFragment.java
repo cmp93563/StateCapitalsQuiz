@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.content.Intent;
@@ -45,6 +46,9 @@ public class QuizQuestionFragment extends Fragment {
     private static List<Quiz> quizList;
     private int[] indices;
     private int currentQuiz;
+
+    private RecyclerView recyclerView;
+    private QuizRecyclerAdapter recyclerAdapter;
     private int index1;
     private int index2;
     private int index3;
@@ -246,6 +250,7 @@ public class QuizQuestionFragment extends Fragment {
             quizList = quizData.retrieveAllQuizzes();
 
             return quizList;
+
         }
 
         @Override

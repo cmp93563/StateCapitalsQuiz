@@ -15,7 +15,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class QuizRecyclerAdapter
@@ -50,7 +56,6 @@ public class QuizRecyclerAdapter
             super(itemView);
 
             date = itemView.findViewById(R.id.quizDate);
-            time = itemView.findViewById(R.id.quizTime);
             result = itemView.findViewById(R.id.quizScore);
         }
     }
@@ -74,8 +79,7 @@ public class QuizRecyclerAdapter
         Log.d( DEBUG_TAG, "onBindViewHolder: " + quiz );
 
         holder.date.setText( quiz.getDate());
-        holder.time.setText( quiz.getDate() );
-        holder.result.setText( quiz.getResult() );
+        holder.result.setText( Integer.toString(quiz.getResult()) );
     }
 
     @Override

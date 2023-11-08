@@ -44,11 +44,8 @@ public class QuizResultFragment extends Fragment {
 
         TextView textView = view.findViewById( R.id.score );
         RadioButton playAgainButton = view.findViewById( R.id.homeButton);
-
-        // set question and choices
-
-//        textView.setText("X/6");
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -13,7 +13,6 @@ public class PastQuizzesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_quizzes);
-
         Fragment fragment = new PastQuizzesFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("Past Quizzes Activity" ).commit();
