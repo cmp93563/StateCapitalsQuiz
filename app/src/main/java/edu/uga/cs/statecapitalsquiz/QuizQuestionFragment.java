@@ -27,9 +27,9 @@ import java.util.Random;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link QuizQuestionFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * This class displays the quiz in the QuizActivity class on its
+ * viewPager. Each question is on a different page and the user
+ * can swipe right to access the next question.
  */
 public class QuizQuestionFragment extends Fragment {
 

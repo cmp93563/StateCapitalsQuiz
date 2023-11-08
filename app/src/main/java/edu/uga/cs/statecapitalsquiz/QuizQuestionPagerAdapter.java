@@ -5,6 +5,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+/**
+ * This class ensures that the quiz question fragments are
+ * displayed correctly and in the order we want in the
+ * activity.
+ */
 public class QuizQuestionPagerAdapter extends FragmentStateAdapter {
 
     public QuizQuestionPagerAdapter(

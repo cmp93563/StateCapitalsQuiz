@@ -10,6 +10,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class stores the quiz data into the database and also
+ * retrieves quizzes from it.
+ */
 public class QuizData {
     public static final String DEBUG_TAG = "QuizData";
 

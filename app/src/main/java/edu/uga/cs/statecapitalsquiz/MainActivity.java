@@ -25,7 +25,9 @@ import com.opencsv.CSVReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-
+/**
+ * This class is the splash screen of the application.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String DEBUG_TAG = "MainActivity";
@@ -35,12 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private int[] a = new int[6];
     private static int empty;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        getSupportActionBar().setTitle();
 
         startButton = findViewById(R.id.startButton);
         pastQuizzesButton = findViewById(R.id.pastQuizzesButton);

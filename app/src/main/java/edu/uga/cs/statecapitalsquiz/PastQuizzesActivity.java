@@ -7,11 +7,15 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
+/**
+ * This class is the layout for the past quizzes fragment.
+ */
 public class PastQuizzesActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // sets fragment for past quizzes
         setContentView(R.layout.activity_past_quizzes);
         Fragment fragment = new PastQuizzesFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();

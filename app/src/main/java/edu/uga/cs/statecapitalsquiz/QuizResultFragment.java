@@ -12,9 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link QuizResultFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * This class displays the final result of the quiz.
  */
 public class QuizResultFragment extends Fragment {
     private String score = "5/6";
@@ -41,9 +39,6 @@ public class QuizResultFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState ) {
         super.onViewCreated( view, savedInstanceState );
-
-        TextView textView = view.findViewById( R.id.score );
-        RadioButton playAgainButton = view.findViewById( R.id.homeButton);
     }
 
     @Override

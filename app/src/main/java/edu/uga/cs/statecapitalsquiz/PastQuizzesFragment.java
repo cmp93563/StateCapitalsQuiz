@@ -87,13 +87,13 @@ public class PastQuizzesFragment extends Fragment {
 
     }
 
-    // This is an AsyncTask class (it extends AsyncTask) to perform DB reading of job leads, asynchronously.
+    // This is an AsyncTask class (it extends AsyncTask) to perform DB reading of quizzes, asynchronously.
     private class QuizzesDBReader extends AsyncTask<Void, List<Quiz>> {
         @Override
         protected List<Quiz> doInBackground( Void... params ) {
             List<Quiz> quizzesList = quizData.retrieveAllQuizzes();
 
-            Log.d( TAG, "QuizzesDBReader: Job leads retrieved: " + quizzesList.size() );
+            Log.d( TAG, "QuizzesDBReader: Quizzes retrieved: " + quizzesList.size() );
 
             return quizzesList;
         }
@@ -103,9 +103,9 @@ public class PastQuizzesFragment extends Fragment {
         // values for the RecyclerView.
         // onPostExecute is like the notify method in an asynchronous method call discussed in class.
         @Override
-        protected void onPostExecute( List<Quiz> jobsList ) {
-            Log.d( TAG, "QuizzesDBReader: jobsList.size(): " + jobsList.size() );
-            quizzesList.addAll( jobsList );
+        protected void onPostExecute( List<Quiz> quizList ) {
+            Log.d( TAG, "QuizzesDBReader: quizList.size(): " + quizList.size() );
+            quizzesList.addAll( quizList );
 
             // create the RecyclerAdapter and set it for the RecyclerView
 //            Collections.sort(quizzesList, new QuizSortByDate());
@@ -132,7 +132,7 @@ public class PastQuizzesFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle( getResources().getString( R.string.app_name ) );
     }
 
-    // We need to save job leads into a file as the activity stops being a foreground activity
+    // We need to save quizzes into a file as the activity stops being a foreground activity
     @Override
     public void onPause() {
         super.onPause();

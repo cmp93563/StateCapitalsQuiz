@@ -5,6 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * This class creates a new entry in the database for the quiz
+ * questions. It is called by the QuizData class to store and
+ * fetch data.
+ */
 public class QuizDBHelper extends SQLiteOpenHelper {
 
     private static final String DEBUG_TAG = "QuizDBHelper";
