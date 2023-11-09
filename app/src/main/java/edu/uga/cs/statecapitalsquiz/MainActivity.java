@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         quizData = new QuizData(MainActivity.this);
 
-       // new QuestionDBReader().execute();
-
         if (quizData != null) {
             quizData.open();
             Log.d(DEBUG_TAG, "opened DB");
@@ -51,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method to check if the questions table is empty, and if it is not,
+     * will call the appropriate methods to read the CSV file and fill
+     * the database table.
+     */
     private class readInitial extends AsyncTask<Void, List<QuizQuestion>> {
 
         @Override
@@ -109,7 +112,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // after quiz is created - store into DB ASYNCHRONOUSLY
+    /**
+     * Method to asynchronously store a new quiz in the database.
+     */
     public static class QuizDBWriter extends AsyncTask<Quiz, Quiz> {
 
         @Override
@@ -126,6 +131,11 @@ public class MainActivity extends AppCompatActivity {
 
     } // class
 
+    /**
+     * This method will read a line from the CSV file, use it to create
+     * a new QuizQuestion object, and call a method to insert that object
+     * into the database.
+     */
     public void readQuestions() {
         try {
             // open CSV file
@@ -152,6 +162,9 @@ public class MainActivity extends AppCompatActivity {
         }
     } // readQuestions
 
+    /**
+     * Method to asynchronously write a QuizQuestion object to the database.
+     */
     public class QuestionDBWriter extends AsyncTask<QuizQuestion, QuizQuestion> {
 
         @Override
