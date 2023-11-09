@@ -41,7 +41,6 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     // only instance for the helper
     private static QuizDBHelper helperInstance;
 
-    // Create table SQL statement to create a table for quiz questions
     private static final String CREATE_QUESTIONS =
             "create table " + TABLE_QUESTIONS + " ("
                     + QUESTIONS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -51,7 +50,6 @@ public class QuizDBHelper extends SQLiteOpenHelper {
                     + QUESTIONS_COLUMN_CITY_3 + " TEXT"
                     + ")";
 
-    // !!! may need 6 additional columns for answers to questions (null if none?) !!!!
     private static final String CREATE_QUIZZES =
             "create table " + TABLE_QUIZZES + " ("
                     + QUIZZES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -82,8 +80,6 @@ public class QuizDBHelper extends SQLiteOpenHelper {
         super( context, DB_NAME, null, DB_VERSION );
     }
 
-    // Access method to the single instance of the class.
-    // It is synchronized, so that only one thread can executes this method at a time.
     public static synchronized QuizDBHelper getInstance( Context context ) {
         // check if the instance already exists and if not, create the instance
         boolean isNull = false; // debug

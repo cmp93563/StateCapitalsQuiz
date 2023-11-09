@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link PastQuizzesFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment to display the list of past quizzes.
  */
 public class PastQuizzesFragment extends Fragment {
 
@@ -50,8 +48,7 @@ public class PastQuizzesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView( LayoutInflater inflater, ViewGroup container,
-                              Bundle savedInstanceState ) {
+    public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
         // Inflate the layout for this fragment
         return inflater.inflate( R.layout.fragment_past_quizzes, container, false );
     }
@@ -85,10 +82,6 @@ public class PastQuizzesFragment extends Fragment {
             return quizzesList;
         }
 
-        // This method will be automatically called by Android once the db reading
-        // background process is finished.  It will then create and set an adapter to provide
-        // values for the RecyclerView.
-        // onPostExecute is like the notify method in an asynchronous method call discussed in class.
         @Override
         protected void onPostExecute( List<Quiz> quizList ) {
             Log.d( TAG, "QuizzesDBReader: quizList.size(): " + quizList.size() );

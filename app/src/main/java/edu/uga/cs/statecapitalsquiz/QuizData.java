@@ -23,7 +23,6 @@ public class QuizData {
     // helper obj to create/update/delete table data
     private SQLiteOpenHelper quizDBHelper;
 
-    // !! i dont think we need this either
     private static final String[] questionColumns = {
             QuizDBHelper.QUESTIONS_COLUMN_ID,
             QuizDBHelper.QUESTIONS_COLUMN_STATE,
@@ -32,7 +31,6 @@ public class QuizData {
             QuizDBHelper.QUESTIONS_COLUMN_CITY_3
     };
 
-    // table for quizzes columns
     private static final String[] quizColumns = {
             QuizDBHelper.QUIZZES_COLUMN_ID,
             QuizDBHelper.QUIZZES_COLUMN_DATE,
@@ -70,11 +68,13 @@ public class QuizData {
         return db.isOpen();
     }
 
-    // !! i don't actually think we need this method
-    // retrieve all questions as list
+    /**
+     * Method to retrieve questions currently in the database and turn
+     * them into an ArrayList of QuizQuestion objects.
+     *
+     * @return the ArrayList of question objects
+     */
     public List<QuizQuestion> retrieveAllQuestions() {
-
-        //Log.d(DEBUG_TAG, "inside retrieveAllQuestions");
 
         ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
         Cursor cursor = null;
@@ -108,7 +108,6 @@ public class QuizData {
 
                             quizQuestions.add(question);
 
-                            //Log.d(DEBUG_TAG, "Retrieved question with id: " + question.getId());
                         } // if
                     } // while
                 } // if
@@ -134,8 +133,6 @@ public class QuizData {
             ArrayList<Quiz> quizzes = new ArrayList<>();
             Cursor cursor = null;
             int colIndex;
-
-        //Log.d(DEBUG_TAG, "inside retrieveAllQuizzes");
 
             try {
 
@@ -171,7 +168,6 @@ public class QuizData {
                             quiz.setId(id);
 
                             quizzes.add(quiz);
-                            //Log.d(DEBUG_TAG, "Retrieved quiz with id: " + quiz.getId());
                         } // if
                     } // while
                 } // if
@@ -183,7 +179,6 @@ public class QuizData {
                     cursor.close();
                 }
             }
-            //Log.d(DEBUG_TAG, "quizzes.size(): " + quizzes.size());
             return quizzes;
         }
 
@@ -237,18 +232,14 @@ public class QuizData {
         return quizQuestion;
     } // storeQuestion
 
-    /*
-
-    public String doQuery(String query, int index) {
-        Cursor cursor = null;
-        String str = "";
-        cursor = db.rawQuery(query,null);
-        if (cursor != null && cursor.moveToFirst()) {
-            str = cursor.getString(0);
-        }
-        return str;
-    }
-*/
+    /**
+     * This method will run a query on a table into the database
+     * and return the desired value (specifically to check if the
+     * quizQuestions DB table is empty or not).
+     *
+     * @param query the string query to be executed
+     * @return 0 if the table is empty
+     */
     public int doQuery(String query) {
         Cursor cursor = null;
         int num = -1;
@@ -260,7 +251,15 @@ public class QuizData {
         return num;
     }
 
-
+    /**
+     * This method will take the id, date, result, and number of
+     * answered questions for a quiz and update those columns.
+     *
+     * @param id the id of the desired quis to update
+     * @param date the date the quiz was completed
+     * @param result the result of the quiz
+     * @param answered the number of answered questions of the quiz
+     */
     public void storeItems(int id, String date, int result, int answered) {
         String query = "UPDATE " + QuizDBHelper.TABLE_QUIZZES +
                         " SET " + QuizDBHelper.QUIZZES_COLUMN_DATE + " = " + date + ", "

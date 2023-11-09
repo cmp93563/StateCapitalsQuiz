@@ -78,17 +78,11 @@ public class QuizQuestionFragment extends Fragment {
         if (getArguments() != null) {
             questionNum = getArguments().getInt("questionNum");
         }
-        //Log.d(DEBUG_TAG, "inside onCreate(), questionNum = " + questionNum);
 
     }
 
     private class HomeButtonClickListener implements View.OnClickListener {
 
-        /**
-         * Handles overview or details button click
-         *
-         * @param view the button
-         */
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(view.getContext(), MainActivity.class);
@@ -99,8 +93,15 @@ public class QuizQuestionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         quizData = new QuizData(getActivity());
         quizData.open();
+
+        // reset vars if user starts new quiz
+        if (questionNum == 0){
+            answered = 0;
+            result = 0;
+        }
 
         if (questionNum == getNumberOfQuestions()) {
             if (questionScore == 1) {
@@ -116,7 +117,6 @@ public class QuizQuestionFragment extends Fragment {
             Log.d(DEBUG_TAG, "date: " + date);
 
             textView = view.findViewById(R.id.score);
-
 
             homeButton = view.findViewById(R.id.homeButton);
             homeButton.setOnClickListener(new HomeButtonClickListener());
@@ -190,7 +190,6 @@ public class QuizQuestionFragment extends Fragment {
 //                        isCorrect.setText("Incorrect!");
                     }
 
-                    Log.d(DEBUG_TAG, "questionNum= " + questionNum);
                     // as long as numAnswered is not greater than current question, ++
                     if (answered < questionNum + 1) {
                         answered++;
@@ -274,6 +273,10 @@ public class QuizQuestionFragment extends Fragment {
         }
     }
 
+    /**
+     * Class to asynchronously write remaining quiz data
+     * (date/time, result, etc.) to database.
+     */
     private class writeItems extends AsyncTask<Void, List<Quiz>> {
 
         @Override
@@ -294,6 +297,13 @@ public class QuizQuestionFragment extends Fragment {
         }
     }
 
+    /**
+     * Method to create a convenient array of question strings based on
+     * an array of generated question ids.
+     *
+     * @param indices an array containing the current quiz indices
+     * @return the String array of questions
+     */
     public String[] createQuestionsArr(int[] indices) {
         String[] qs = new String[6];
         // get values from DB
@@ -315,7 +325,13 @@ public class QuizQuestionFragment extends Fragment {
         return qs;
     } // createQsArr
 
-
+    /**
+     * Method to create a convenient array of answers based on
+     * an array of generated question ids.
+     *
+     * @param indices an array containing the current quiz indices
+     * @return the String array of answer choices
+     */
     public String[][] createChoicesArr(int[] indices) {
         String[][] as = new String[6][3];
         String a1_1 = questionsList.get(indices[0] - 1).getCapital();
