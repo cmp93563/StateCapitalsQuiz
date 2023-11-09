@@ -37,12 +37,9 @@ public class QuizQuestionFragment extends Fragment {
     private int[] indices;
     private int currentQuiz;
 
-    private int prevQuestionScore;
-
     private RecyclerView recyclerView;
     private QuizRecyclerAdapter recyclerAdapter;
 
-    private View previousView;
     private int index1;
     private int index2;
     private int index3;
@@ -185,23 +182,11 @@ public class QuizQuestionFragment extends Fragment {
                     String correctAns = questionsList.get(indices[questionNum] - 1).getCapital();
                     Log.d(DEBUG_TAG, "correctAns: " + correctAns);
 
-//                    TextView isCorrect = null;
-//                    if (previousView != null) {
-//                        isCorrect = previousView.findViewById(R.id.isCorrect);
-//                        Log.d(DEBUG_TAG, "previous View");
-//                    }
-
                     if (Objects.equals(correctAns, parsedAns)) {
                         questionScore = 1;
                     } else {
                         questionScore = 0;
                     }
-//                    if (isCorrect != null) {
-//                        isCorrect.setText("Correct!");
-//                        Log.d(DEBUG_TAG, "isCorrect= " + isCorrect);
-//                    }
-
-//                    previousView = view;
 
                     // as long as numAnswered is not greater than current question, ++
                     if (answered < questionNum + 1) {
