@@ -80,8 +80,8 @@ public class QuizRecyclerAdapter
 
         Log.d( DEBUG_TAG, "onBindViewHolder: " + quiz );
 
-        holder.date.setText( quiz.getDate());
-        holder.result.setText( Integer.toString(quiz.getResult()) );
+        holder.date.setText( "Date/Time: " + quiz.getDate());
+        holder.result.setText( "Score (out of 6): " + Integer.toString(quiz.getResult()) );
     }
 
     @Override

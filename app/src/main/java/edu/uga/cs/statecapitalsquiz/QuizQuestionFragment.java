@@ -180,11 +180,14 @@ public class QuizQuestionFragment extends Fragment {
 
                     String correctAns = questionsList.get(indices[questionNum] - 1).getCapital();
                     Log.d(DEBUG_TAG, "correctAns: " + correctAns);
+//                    TextView isCorrect = view.findViewById(R.id.isCorrect);
 
                     if (Objects.equals(correctAns, parsedAns)) {
                         questionScore = 1;
+//                        isCorrect.setText("Correct!");
                     } else {
                         questionScore = 0;
+//                        isCorrect.setText("Incorrect!");
                     }
 
                     Log.d(DEBUG_TAG, "questionNum= " + questionNum);
